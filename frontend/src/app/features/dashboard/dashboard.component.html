@@ -1,0 +1,71 @@
+<div class="dashboard-wrapper">
+  <!-- Fixed Navbar -->
+  <nav class="dashboard-navbar">
+    <div class="navbar-content">
+      <!-- Left: Title & Status -->
+      <div class="navbar-left">
+        <h1 class="navbar-title">Legal Workflow Monitor</h1>
+        <div class="connection-status" [class]="'status-' + connectionStatus()">
+          <span class="status-indicator"></span>
+          <span class="status-text">{{ getStatusText() }}</span>
+        </div>
+      </div>
+
+      <!-- Right: Controls -->
+      <div class="navbar-controls">
+        <button
+          class="control-btn"
+          [class.active]="liveUpdatesEnabled()"
+          (click)="toggleLiveUpdates()"
+          [title]="liveUpdatesEnabled() ? 'Pause Updates' : 'Resume Updates'">
+          <span class="btn-icon">{{ liveUpdatesEnabled() ? '⏸' : '▶' }}</span>
+        </button>
+
+        <button
+          class="control-btn"
+          (click)="refreshData()"
+          title="Refresh Data">
+          <span class="btn-icon">↻</span>
+        </button>
+
+        <button
+          class="control-btn"
+          (click)="toggleTheme()"
+          title="Toggle Theme">
+          <span class="btn-icon">{{ currentTheme() === 'light' ? '🌙' : '☀️' }}</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="dashboard-container">
+    <!-- Status Cards Grid -->
+    <section class="dashboard-section">
+      <app-status-cards />
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="dashboard-section">
+      <app-timeline />
+    </section>
+
+    <!-- Charts Grid -->
+    <section class="dashboard-section charts-grid">
+      <div class="chart-card">
+        <app-volume-chart />
+      </div>
+      <div class="chart-card">
+        <app-heatmap />
+      </div>
+    </section>
+
+    <!-- Filters Section (Now Horizontal) -->
+    <section class="dashboard-section">
+      <app-filters />
+    </section>
+  </div>
+
+  <!-- Toast Notifications -->
+  <app-toast />
+</div>
