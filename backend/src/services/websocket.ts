@@ -71,12 +71,10 @@ const startBroadcasting = (): void => {
       });
     }
 
-    // Schedule next broadcast (10-20 seconds)
-    const nextDelay = Math.floor(Math.random() * 10000) + 10000;
+    const nextDelay = Math.floor(Math.random() * 300000) + 900000;
     setTimeout(broadcast, nextDelay);
   };
 
-  // Start first broadcast after 5 seconds
   setTimeout(broadcast, 5000);
 };
 

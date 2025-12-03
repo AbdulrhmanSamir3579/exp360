@@ -58,7 +58,6 @@
 .status-excellent,
 .status-fast,
 .status-none {
-    background: var(--color-success-light) !important;
     color: var(--color-success) !important;
 }
 
@@ -72,13 +71,11 @@
 .status-warning,
 .status-slow,
 .status-medium {
-    background: var(--color-warning-light) !important;
     color: var(--color-warning) !important;
 }
 
 .status-critical,
 .status-high {
-    background: var(--color-danger-light) !important;
     color: var(--color-danger) !important;
 }
 

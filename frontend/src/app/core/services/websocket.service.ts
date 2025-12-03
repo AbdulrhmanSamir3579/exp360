@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { WebSocketMessage } from '../models/workflow.models';
 
-/**
- * WebSocket Service
- * Manages WebSocket connection for real-time updates
- */
 @Injectable({ providedIn: 'root' })
 export class WebSocketService {
   private socket: WebSocket | null = null;
@@ -17,23 +13,14 @@ export class WebSocketService {
   
   readonly WS_URL = 'ws://localhost:3000';
   
-  /**
-   * Observable for incoming messages
-   */
   get messages$(): Observable<WebSocketMessage> {
     return this.messageSubject.asObservable();
   }
   
-  /**
-   * Observable for connection status
-   */
   get connectionStatus$(): Observable<'connected' | 'disconnected' | 'error'> {
     return this.connectionStatusSubject.asObservable();
   }
   
-  /**
-   * Connect to WebSocket server
-   */
   connect(): void {
     if (this.socket?.readyState === WebSocket.OPEN) {
       console.log('WebSocket already connected');
@@ -75,9 +62,6 @@ export class WebSocketService {
     }
   }
   
-  /**
-   * Disconnect from WebSocket server
-   */
   disconnect(): void {
     if (this.socket) {
       this.socket.close();
@@ -85,9 +69,6 @@ export class WebSocketService {
     }
   }
   
-  /**
-   * Send message to server
-   */
   send(message: any): void {
     if (this.socket?.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(message));
@@ -96,16 +77,10 @@ export class WebSocketService {
     }
   }
   
-  /**
-   * Check if WebSocket is connected
-   */
   isConnected(): boolean {
     return this.socket?.readyState === WebSocket.OPEN;
   }
   
-  /**
-   * Attempt to reconnect with exponential backoff
-   */
   private attemptReconnect(): void {
     if (this.reconnectAttempts >= this.maxReconnectAttempts) {
       console.error('Max reconnection attempts reached. Giving up.');

@@ -11,23 +11,21 @@ class MockDataService {
 
   private initializeData(): void {
     const now = new Date();
+    const currentHour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), 0, 0, 0);
     
-    // Generate events distributed over the past 24 hours
-    // 1 event per hour for cleaner display
     for (let i = 0; i < 24; i++) {
-      // Random time within this hour
-      const timeOffset = (i * 60 * 60 * 1000) + (Math.random() * 60 * 60 * 1000);
-      const timestamp = new Date(now.getTime() - timeOffset);
+      const hourTimestamp = new Date(currentHour.getTime() - (i * 60 * 60 * 1000));
+      const variance = Math.random() * 45 * 60 * 1000;
+      const timestamp = new Date(hourTimestamp.getTime() + variance);
       this.events.push(this.generateEvent(timestamp));
     }
 
-    // Generate fewer anomalies distributed over the past 24 hours
     for (let i = 0; i < 8; i++) {
-      const timestamp = new Date(now.getTime() - Math.random() * 24 * 60 * 60 * 1000);
+      const randomHourOffset = Math.random() * 24 * 60 * 60 * 1000;
+      const timestamp = new Date(currentHour.getTime() - randomHourOffset);
       this.anomalies.push(this.generateAnomaly(timestamp));
     }
 
-    // Sort by timestamp
     this.events.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
     this.anomalies.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
   }

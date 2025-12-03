@@ -1,28 +1,17 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { ChartType, ChartConfig, ChartColors } from './chart.models';
-import { ThemeService } from '@core/services';
 
 @Injectable({ providedIn: 'root' })
 export class ChartThemeService {
-  private themeService = inject(ThemeService);
-
-  private lightColors: ChartColors = {
+  // Neutral colors that work on both dark and light backgrounds
+  private neutralColors: ChartColors = {
     primary: 'rgba(0, 217, 255, 1)',
     secondary: 'rgba(132, 188, 71, 1)',
     tertiary: 'rgba(0, 172, 167, 1)',
     background: 'transparent',
-    text: '#4b5563',
-    grid: 'rgba(0, 0, 0, 0.1)',
-  };
-
-  private darkColors: ChartColors = {
-    primary: 'rgba(0, 217, 255, 1)',
-    secondary: 'rgba(132, 188, 71, 1)',
-    tertiary: 'rgba(0, 172, 167, 1)',
-    background: 'transparent',
-    text: '#e2e8f0',
-    grid: 'rgba(255, 255, 255, 0.1)',
+    text: '#64748b', // Slate 500 - readable on both backgrounds
+    grid: 'rgba(100, 116, 139, 0.15)', // Slate 500 with low opacity
   };
 
   getChartOption(
@@ -30,9 +19,7 @@ export class ChartThemeService {
     data: any[],
     config: Partial<ChartConfig> = {}
   ): EChartsOption {
-    // Read theme directly from ThemeService signal
-    const isDark = this.themeService.isDarkMode();
-    const colors = isDark ? this.darkColors : this.lightColors;
+    const colors = this.neutralColors;
 
     const finalConfig: ChartConfig = {
       fontFamily: 'Inter, sans-serif',
@@ -55,11 +42,11 @@ export class ChartThemeService {
       },
       tooltip: {
         trigger: 'item',
-        backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-        borderColor: finalConfig.colors!.grid,
+        backgroundColor: 'rgba(30, 41, 59, 0.95)', // Dark slate for consistent tooltips
+        borderColor: 'rgba(100, 116, 139, 0.3)',
         borderWidth: 1,
         textStyle: {
-          color: finalConfig.colors!.text,
+          color: '#e2e8f0', // Light text for dark tooltip
         },
         padding: 12,
         borderRadius: 8,
@@ -68,7 +55,7 @@ export class ChartThemeService {
 
     switch (type) {
       case 'heatmap':
-        return this.createEnhancedHeatmap(data, finalConfig, baseOption, isDark);
+        return this.createEnhancedHeatmap(data, finalConfig, baseOption);
       case 'bar':
         return this.createBarChart(data, finalConfig, baseOption);
       case 'line':
@@ -84,23 +71,10 @@ export class ChartThemeService {
   private createEnhancedHeatmap(
     data: any[],
     config: ChartConfig,
-    baseOption: EChartsOption,
-    isDark: boolean
+    baseOption: EChartsOption
   ): EChartsOption {
     const hours = Array.from({ length: 24 }, (_, i) => i);
     const severities = ['Low', 'Medium', 'High', 'Critical'];
-
-    // Get actual data ranges to avoid empty cells
-    const hoursWithData = [...new Set(data.map(d => d.x))].sort((a, b) => a - b);
-    const severitiesWithData = [...new Set(data.map(d => d.y))].sort((a, b) => a - b);
-
-    console.log('Chart Theme - isDark:', isDark);
-    console.log('Hours with data:', hoursWithData);
-    console.log('Severities with data:', severitiesWithData);
-    console.log('Total data points:', data.length);
-
-    // Calculate max value for better color scaling
-    const maxValue = Math.max(...data.map(d => d.value), 1);
 
     return {
       ...baseOption,
@@ -127,9 +101,7 @@ export class ChartThemeService {
         splitArea: {
           show: true,
           areaStyle: {
-            color: isDark
-              ? ['rgba(255, 255, 255, 0.02)', 'rgba(255, 255, 255, 0.04)']
-              : ['rgba(0, 0, 0, 0.02)', 'rgba(0, 0, 0, 0.04)'],
+            color: ['rgba(100, 116, 139, 0.03)', 'rgba(100, 116, 139, 0.06)'],
           },
         },
       },
@@ -149,9 +121,7 @@ export class ChartThemeService {
         splitArea: {
           show: true,
           areaStyle: {
-            color: isDark
-              ? ['rgba(255, 255, 255, 0.02)', 'rgba(255, 255, 255, 0.04)']
-              : ['rgba(0, 0, 0, 0.02)', 'rgba(0, 0, 0, 0.04)'],
+            color: ['rgba(100, 116, 139, 0.03)', 'rgba(100, 116, 139, 0.06)'],
           },
         },
       },
@@ -159,10 +129,10 @@ export class ChartThemeService {
         type: 'piecewise',
         dimension: 1, // Use y-axis dimension (severity index)
         pieces: [
-          { value: 0, label: 'Low', color: isDark ? '#10b981' : '#34d399' },
-          { value: 1, label: 'Medium', color: isDark ? '#f59e0b' : '#fbbf24' },
-          { value: 2, label: 'High', color: isDark ? '#f97316' : '#fb923c' },
-          { value: 3, label: 'Critical', color: isDark ? '#ef4444' : '#f87171' },
+          { value: 0, label: 'Low', color: '#22c55e' },
+          { value: 1, label: 'Medium', color: '#f59e0b' },
+          { value: 2, label: 'High', color: '#f97316' },
+          { value: 3, label: 'Critical', color: '#ef4444' },
         ],
         orient: 'horizontal',
         left: 'center',
@@ -174,7 +144,7 @@ export class ChartThemeService {
         itemWidth: 14,
         itemHeight: 14,
         itemGap: 15,
-        selectedMode: 'multiple', // Allow toggling categories
+        selectedMode: 'multiple',
       },
       series: [{
         type: 'heatmap',
@@ -183,9 +153,8 @@ export class ChartThemeService {
           show: config.showLabels,
           fontSize: 13,
           fontWeight: 'bold',
-          color: isDark ? '#fff' : '#000',
+          color: '#1e293b', // Dark text for heatmap cells
           formatter: (params: any) => {
-            // Only show label if there's actual data
             return params.value[2] > 0 ? params.value[2] : '';
           }
         },
@@ -198,18 +167,18 @@ export class ChartThemeService {
           },
         },
         itemStyle: {
-          borderColor: isDark ? '#0f172a' : '#ffffff',
-          borderWidth: 3,
+          borderColor: 'rgba(100, 116, 139, 0.2)',
+          borderWidth: 2,
           borderRadius: 6,
         },
       }],
       tooltip: {
         trigger: 'item',
-        backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-        borderColor: config.colors!.grid,
+        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+        borderColor: 'rgba(100, 116, 139, 0.3)',
         borderWidth: 1,
         textStyle: {
-          color: config.colors!.text,
+          color: '#e2e8f0',
         },
         padding: 12,
         borderRadius: 8,

@@ -13,14 +13,11 @@ import { SkeletonComponent } from '@shared/components/skeleton/skeleton.componen
 export class StatusCardsComponent implements OnInit {
   private metricsState = inject(MetricsState);
   
-  // Expose state to template
   stats = this.metricsState.stats;
   loading = this.metricsState.loading;
   slaStatus = this.metricsState.slaStatus;
   cycleTimeStatus = this.metricsState.cycleTimeStatus;
   anomalyStatus = this.metricsState.anomalyStatus;
   
-  ngOnInit(): void {
-    // Component will reactively update when state changes
-  }
+  ngOnInit(): void {}
 }
