@@ -3,17 +3,10 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-COPY tsconfig.json ./
+COPY . .
 
-# Install dependencies
 RUN npm ci
 
-# Copy source code
-COPY src ./src
-
-# Build TypeScript
 RUN npm run build
 
 # Production stage
