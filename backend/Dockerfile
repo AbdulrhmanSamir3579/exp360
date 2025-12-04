@@ -2,11 +2,12 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+# Railway builds from repo root, so we need backend/ prefix
+COPY backend/package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY backend/ .
 
 RUN npm run build
 
