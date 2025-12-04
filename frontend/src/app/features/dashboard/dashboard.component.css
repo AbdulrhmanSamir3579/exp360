@@ -3,7 +3,6 @@
   background-color: var(--color-bg-primary);
 }
 
-/* Fixed Navbar */
 .dashboard-navbar {
   position: fixed;
   top: 0;
@@ -40,7 +39,6 @@
   margin: 0;
 }
 
-/* Connection Status */
 .connection-status {
   display: flex;
   align-items: center;
@@ -144,19 +142,16 @@
   justify-content: center;
 }
 
-/* Main Dashboard Container */
 .dashboard-container {
   max-width: 1600px;
   margin: 0 auto;
   padding: calc(80px + 2rem) 2rem 2rem;
 }
 
-/* Dashboard Sections */
 .dashboard-section {
   margin-bottom: 2rem;
 }
 
-/* Charts Grid */
 .charts-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -167,7 +162,6 @@
   min-height: 400px;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .charts-grid {
     grid-template-columns: 1fr;

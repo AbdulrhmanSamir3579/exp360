@@ -1,8 +1,6 @@
 <div class="dashboard-wrapper">
-  <!-- Fixed Navbar -->
   <nav class="dashboard-navbar">
     <div class="navbar-content">
-      <!-- Left: Title & Status -->
       <div class="navbar-left">
         <h1 class="navbar-title">Legal Workflow Monitor</h1>
         <div class="connection-status" [class]="'status-' + connectionStatus()">
@@ -11,7 +9,6 @@
         </div>
       </div>
 
-      <!-- Right: Controls -->
       <div class="navbar-controls">
         <button
           class="control-btn"
@@ -45,12 +42,10 @@
       <app-status-cards />
     </section>
 
-    <!-- Timeline Section -->
     <section class="dashboard-section">
       <app-timeline />
     </section>
 
-    <!-- Charts Grid -->
     <section class="dashboard-section charts-grid">
       <div class="chart-card">
         <app-volume-chart />
@@ -59,13 +54,7 @@
         <app-heatmap />
       </div>
     </section>
-
-    <!-- Filters Section (Now Horizontal) -->
-    <section class="dashboard-section">
-      <app-filters />
-    </section>
   </div>
 
-  <!-- Toast Notifications -->
   <app-toast />
 </div>

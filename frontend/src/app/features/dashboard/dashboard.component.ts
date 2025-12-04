@@ -10,7 +10,6 @@ import { StatusCardsComponent } from './components/status-cards/status-cards.com
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { HeatmapComponent } from './components/heatmap/heatmap.component';
 import { VolumeChartComponent } from './components/volume-chart/volume-chart.component';
-import { FiltersComponent } from './components/filters/filters.component';
 import { ToastComponent } from '@shared/components/toast/toast.component';
 import { Subscription } from 'rxjs';
 
@@ -23,7 +22,6 @@ import { Subscription } from 'rxjs';
     TimelineComponent,
     HeatmapComponent,
     VolumeChartComponent,
-    FiltersComponent,
     ToastComponent
   ],
   templateUrl: './dashboard.component.html',
