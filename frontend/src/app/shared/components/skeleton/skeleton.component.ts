@@ -1,17 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-/**
- * Skeleton Loader Component
- * Shows loading placeholders
- */
 @Component({
   selector: 'app-skeleton',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div 
-      class="skeleton" 
+    <div
+      class="skeleton"
       [style.height]="height"
       [style.width]="width"
       [class.skeleton-circle]="variant === 'circle'"
@@ -30,15 +26,15 @@ import { CommonModule } from '@angular/common';
       animation: skeleton-loading 1.5s ease-in-out infinite;
       border-radius: var(--radius-md);
     }
-    
+
     .skeleton-circle {
       border-radius: 50%;
     }
-    
+
     .skeleton-rect {
       border-radius: var(--radius-sm);
     }
-    
+
     @keyframes skeleton-loading {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }

@@ -1,6 +1,4 @@
-/* CSS Custom Properties (Variables) */
 :root {
-    /* Spacing System */
     --spacing-xs: 4px;
     --spacing-sm: 8px;
     --spacing-md: 16px;

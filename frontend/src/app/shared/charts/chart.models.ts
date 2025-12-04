@@ -1,4 +1,3 @@
-// Chart type definitions and configuration interfaces
 
 export type ChartType = 'bar' | 'line' | 'heatmap' | 'timeline';
 

@@ -4,14 +4,13 @@ import { ChartType, ChartConfig, ChartColors } from './chart.models';
 
 @Injectable({ providedIn: 'root' })
 export class ChartThemeService {
-  // Neutral colors that work on both dark and light backgrounds
   private neutralColors: ChartColors = {
     primary: 'rgba(0, 217, 255, 1)',
     secondary: 'rgba(132, 188, 71, 1)',
     tertiary: 'rgba(0, 172, 167, 1)',
     background: 'transparent',
-    text: '#64748b', // Slate 500 - readable on both backgrounds
-    grid: 'rgba(100, 116, 139, 0.15)', // Slate 500 with low opacity
+    text: '#64748b',
+    grid: 'rgba(100, 116, 139, 0.15)',
   };
 
   getChartOption(
@@ -42,11 +41,11 @@ export class ChartThemeService {
       },
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(30, 41, 59, 0.95)', // Dark slate for consistent tooltips
+        backgroundColor: 'rgba(30, 41, 59, 0.95)',
         borderColor: 'rgba(100, 116, 139, 0.3)',
         borderWidth: 1,
         textStyle: {
-          color: '#e2e8f0', // Light text for dark tooltip
+          color: '#e2e8f0',
         },
         padding: 12,
         borderRadius: 8,
@@ -65,9 +64,7 @@ export class ChartThemeService {
     }
   }
 
-  /**
-   * Create enhanced heatmap with better visuals and click handling
-   */
+
   private createEnhancedHeatmap(
     data: any[],
     config: ChartConfig,
@@ -211,10 +208,8 @@ export class ChartThemeService {
     config: ChartConfig,
     baseOption: EChartsOption
   ): EChartsOption {
-    // Check if this should be a hybrid chart (bar + line)
     const isHybrid = config.hybrid === true;
 
-    // Calculate cumulative values for hybrid chart
     let cumulativeData: number[] = [];
     if (isHybrid) {
       let sum = 0;
@@ -252,7 +247,6 @@ export class ChartThemeService {
 
     const series: any[] = [barSeries];
 
-    // Add line series for hybrid chart with cumulative data
     if (isHybrid) {
       series.push({
         name: 'Cumulative',
@@ -316,7 +310,6 @@ export class ChartThemeService {
       },
     }];
 
-    // Add second Y-axis for cumulative if hybrid
     if (isHybrid) {
       yAxisConfig.push({
         type: 'value',

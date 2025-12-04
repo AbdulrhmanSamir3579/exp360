@@ -18,9 +18,8 @@ import {
 } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import { routes } from './app.routes';
-import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { errorInterceptor } from '@core/interceptors/error.interceptor';
 
-// Register ECharts modules
 echarts.use([
   BarChart,
   LineChart,
