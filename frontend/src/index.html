@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Frontend</title>
+  <title>Legal Workflow Dashboard</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // Runtime configuration - will be replaced by Railway environment variables
+    window.API_URL = window.API_URL || 'http://localhost:3000';
+    window.WS_URL = window.WS_URL || 'ws://localhost:3000';
+  </script>
 </head>
 <body>
   <app-root></app-root>

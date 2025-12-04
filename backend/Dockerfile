@@ -2,7 +2,8 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY . .
+# Copy backend files from backend directory
+COPY backend/ .
 
 RUN npm install
 

@@ -11,7 +11,7 @@ export class WebSocketService {
   private maxReconnectAttempts = 5;
   private reconnectDelay = 3000;
   
-  readonly WS_URL = 'ws://localhost:3000';
+  readonly WS_URL = (window as any)['WS_URL'] || 'ws://localhost:3000';
   
   get messages$(): Observable<WebSocketMessage> {
     return this.messageSubject.asObservable();

@@ -5,7 +5,7 @@ import { OverviewStats, TimelineEvent, Anomaly } from '../models/workflow.models
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private readonly API_URL = 'http://localhost:3000';
+  private readonly API_URL = (window as any)['API_URL'] || 'http://localhost:3000';
   
   constructor(private http: HttpClient) {}
   
