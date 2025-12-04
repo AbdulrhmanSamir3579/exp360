@@ -141,11 +141,12 @@ npm start    # Runs on http://localhost:4200
 - `NODE_ENV` - Environment (development/production)
 
 ### Frontend
-The frontend uses environment files:
-- `environment.ts` - Development
-- `environment.prod.ts` - Production
+The frontend uses a **runtime configuration** strategy to support "Build Once, Deploy Anywhere".
 
-API URL is configured in the environment files.
+- **Local Development**: Uses `public/env.js` (default values)
+- **Production**: `docker-entrypoint.sh` automatically generates `env.js` from environment variables at runtime.
+
+No build-time configuration is needed for API URLs!
 
 ## 🛡️ Error Handling
 
@@ -337,4 +338,4 @@ Open DevTools and test all breakpoints.
 
 This project is built as a demonstration of modern web development practices with Angular 18, Node.js, WebSocket, and Docker.
 
-**Built with ❤️ using Angular 18, Node.js, and ECharts**
+**Built with ❤️ using Angular 21, Node.js, and ECharts**
